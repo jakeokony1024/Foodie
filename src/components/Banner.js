@@ -10,7 +10,8 @@ const Banner = () => {
     <h1 className="header">Foodie</h1>
    </div>
    <div className="login-box">
-    <button className="login">Login / Sign Up</button>
+    <button className="login">Login</button>
+    <a href="#"><p>New to Foodie? Sign Up Here!</p></a>
    </div>
    </div>
   </div>

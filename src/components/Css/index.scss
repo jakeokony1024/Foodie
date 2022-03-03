@@ -1,3 +1,9 @@
+* {
+  font-family: 'DM Serif Display', serif;
+  letter-spacing: 1px;
+  
+}
+
 .hero-text {
   position: absolute;
   top: 25%;
@@ -5,27 +11,74 @@
   justify-content: center;
   width: 100%;
 }
+.header {
+  font-family: 'Fredoka One', cursive;  color: #007800fe;
+  text-shadow: 2px 2px 2px black;
+  font-weight: 700;
+  font-size: 100px;
+}
+
+button {
+  display: inline-block;
+  border: none;
+  padding: 1rem 2rem;
+  margin: 0;
+  text-decoration: none;
+  font-family: sans-serif;
+    font-size: 1rem;
+    cursor: pointer;
+    text-align: center;
+    transition: background 250ms ease-in-out, 
+                transform 150ms ease;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+}
+
+button:hover {
+    background: #014b01fe;
+}
+
+button:focus {
+  outline: 1px solid #004900;
+  outline-offset: -4px;
+}
+
+button:active {
+  transform: scale(0.99);
+}
 
 .login-box {
   position: absolute;
   top: 65%;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  align-items: center;
   width: 100%;
 }
-.header {
+
+.login {
+  
+  background-color: #007800fe;
   color: white;
-  text-shadow: 2px 2px black;
-  font-weight: 700;
-  font-size: 100px;
+  height: 50px;
+  width: 200px;
+  border-radius: 5px;
+  font-size: large;
+  box-shadow: 3px 3px 5px #004900;
 }
 
-.banner-image {
-  background-color: rgba(0, 0, 0, 0.4);
-  background-image: linear-gradient(
-    to top,
-    rgba(0, 0, 0, 0.8),
-    rgba(0, 0, 0, 0) 60%,
-    rgba(0, 0, 0, 0.8) 100%
-  );
+.login-box > a {
+  color: white;
+  text-decoration: none;
+  text-shadow: 2px 2px black;
+  margin-top: 5px;
+}
+.login:hover {
+  cursor: pointer;
+}
+
+.main-section__about {
+  height: 20em;
+  width: 100%;
+  background-color: gray;
 }
