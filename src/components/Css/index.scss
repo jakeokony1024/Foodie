@@ -1,0 +1,31 @@
+.hero-text {
+  position: absolute;
+  top: 25%;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.login-box {
+  position: absolute;
+  top: 65%;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+.header {
+  color: white;
+  text-shadow: 2px 2px black;
+  font-weight: 700;
+  font-size: 100px;
+}
+
+.banner-image {
+  background-color: rgba(0, 0, 0, 0.4);
+  background-image: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 0.8),
+    rgba(0, 0, 0, 0) 60%,
+    rgba(0, 0, 0, 0.8) 100%
+  );
+}
