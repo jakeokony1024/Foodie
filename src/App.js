@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 // import Header from './Header';
 import Banner from "./components/Banner";
 import AboutSection from "./components/AboutSection";
@@ -6,6 +6,8 @@ import './components/Css/index.scss';
 import WelcomePage from "./containers/WelcomePage";
 import {Routes, Route, Link} from "react-router-dom";
 import {FaTimes} from 'react-icons/fa';
+import Navigation from "./containers/Navigation";
+import FeedPage from "./containers/FeedPage";
 
 
 
@@ -30,16 +32,23 @@ const TopNotification = (props) => {
 
 
 const App = () => {
+    const [userLoggedIn, setUserLoggedIn] = useState(false);
+
+
  return (
      <div className='main-wrapper'>
-         <TopNotification forceHide={true}/>
-         <Routes>
-             {/*authentication*/}
-             <Route path="/" element={<WelcomePage />} />
-             <Route path="login" element={<WelcomePage />} />
-             <Route path="signup" element={<WelcomePage />} />
-             <Route path="forgot-password" element={<WelcomePage />} />
-         </Routes>
+         <TopNotification forceHide={false}/>
+         <div className='page-wrapper'>
+             <Navigation transparent={!userLoggedIn}/>
+             <Routes>
+                 {/*authentication*/}
+                 <Route path="/" element={<WelcomePage />} />
+                 <Route path="/feed" element={<FeedPage />} />
+                 <Route path="login" element={<WelcomePage />} />
+                 <Route path="signup" element={<WelcomePage />} />
+                 <Route path="forgot-password" element={<WelcomePage />} />
+             </Routes>
+         </div>
      </div>
  )
 }
