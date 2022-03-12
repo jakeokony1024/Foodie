@@ -1,19 +1,16 @@
 import {FaSearch} from "react-icons/fa";
 import React from "react";
+import AutoSearch from "../../components/AutoSearch";
 
 const Navigation = (props) => {
     return (
-        <div className='navigation transparent'>
+        <div className={['navigation ', props.transparent ? 'transparent':'']}>
             <div className='navigation-inner'>
                 <h1 className='header'>Foodie</h1>
 
-                <form action="POST" className='nav-search-form'>
-                    <input type="text" className='search-input' placeholder='Search Recipes, Ingredients, Creators, and More!'/>
-                    <div className='search-submit'>
-                        <FaSearch className='nav-search-icon'/>
-                    </div>
-                </form>
-
+                <div className='nav-search-form'>
+                    <AutoSearch />
+                </div>
                 <div className='nav-account'>
                     <a href="">Login</a>
                     <a href="">Sign Up</a>
