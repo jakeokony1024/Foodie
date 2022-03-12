@@ -31,6 +31,7 @@ h1,h2,h3,h4,  {
   display: flex;
   flex:1;
   background: #000;
+  position: relative;
 }
 
 
@@ -111,6 +112,9 @@ $phone-break: 500px;
 //////   NAVIGATION     ////////////////////
 ////////////////////////////////////////////
 .navigation{
+  position: absolute;
+  top:0;left:0;right:0;
+  z-index: 5;
   width:100%;
   height:60px;
   background: white;
@@ -137,45 +141,7 @@ $phone-break: 500px;
       margin:0 10%;
       border-color: inherit;
       color: inherit;
-      .search-input{
-        display: flex;
-        height:40px;
-        line-height: 40px;
-        margin:10px;
-        font-size:16px;
-        flex:1;
-        padding-left:10px;
-        color: inherit;
-        background: transparent;
-        border-width: 2px;
-        border-style: solid;
-        border-color: inherit;
 
-        &::placeholder{
-          color: inherit;
-        }
-      }
-      .search-submit{
-        border-width: 2px;
-        border-style: solid;
-        border-color: inherit;
-        width:40px;
-        height:40px;
-        margin:10px 10px 10px 0;
-        cursor: pointer;
-
-        .nav-search-icon{
-          font-size:20px;
-          padding:10px;
-          height:36px;
-          width:36px;
-        }
-
-        &:hover{
-          color:white;
-          background: black;
-        }
-      }
     }
     .nav-account{
       margin-left:auto;
@@ -378,7 +344,152 @@ $phone-break: 500px;
   }
 }
 
+//Component - AutoSearch
+.auto-search-wrapper{
+  display: flex;
+  flex:1;
+  position: relative;
+  .search-input{
+    display: flex;
+    height:40px;
+    line-height: 40px;
+    margin:10px;
+    font-size:16px;
+    flex:1;
+    padding-left:10px;
+    color: inherit;
+    background: transparent;
+    border-width: 2px;
+    border-style: solid;
+    border-color: inherit;
 
+    &::placeholder{
+      color: inherit;
+    }
+
+  }
+  .search-submit{
+    border-width: 2px;
+    border-style: solid;
+    border-color: inherit;
+    width:40px;
+    height:40px;
+    margin:10px 10px 10px 0;
+    cursor: pointer;
+
+    .nav-search-icon{
+      font-size:20px;
+      padding:10px;
+      height:36px;
+      width:36px;
+    }
+
+    &:hover{
+      color:white;
+      background: black;
+    }
+  }
+
+  .search-results{
+    height:auto;
+    background: white;
+    width: calc(100% - 70px);
+    position: absolute;
+    top:50px;right:10px;left:10px;
+    border:solid 2px #000;
+    border-top:none;
+    display: flex;
+    flex-direction: column;
+    padding:20px 0 20px 0;
+
+    .results-type-wrapper{
+      display: flex;
+      margin:0;
+      width:100%;
+      flex-direction:column;
+
+      .result-label{
+        display: flex;
+        border-bottom:solid 1px #000;
+        margin:10px;
+        padding:0 0 5px 2px;
+        font-size:14px;
+        line-height: 14px;
+        i{
+          font-size:10px;
+          line-height: 14px;
+          padding-left:2px;
+        }
+      }
+      .result-none{
+        display: flex;
+        width:100%;
+        justify-content: center;
+        padding:10px;
+        font-size:12px;
+      }
+    }
+
+
+  }
+
+  .search-loader{
+    display: flex;
+    position: relative;
+    margin:10px auto;
+    width:75px;
+    height:10px;
+    div {
+      position: absolute;
+      top: 0;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: #525252;
+      animation-timing-function: cubic-bezier(0, 1, 1, 0);
+    }
+    div:nth-child(1) {
+      left: 8px;
+      animation: search-loader1 0.6s infinite;
+    }
+    div:nth-child(2) {
+      left: 8px;
+      animation: search-loader2 0.6s infinite;
+    }
+    div:nth-child(3) {
+      left: 32px;
+      animation: search-loader2 0.6s infinite;
+    }
+    div:nth-child(4) {
+      left: 56px;
+      animation: search-loader3 0.6s infinite;
+    }
+    @keyframes search-loader1 {
+      0% {
+        transform: scale(0);
+      }
+      100% {
+        transform: scale(1);
+      }
+    }
+    @keyframes search-loader3 {
+      0% {
+        transform: scale(1);
+      }
+      100% {
+        transform: scale(0);
+      }
+    }
+    @keyframes search-loader2 {
+      0% {
+        transform: translate(0, 0);
+      }
+      100% {
+        transform: translate(24px, 0);
+      }
+    }
+  }
+}
 
 ////////////////////////////////////////////
 //////   CONTAINER PAGES   /////////////////
@@ -504,8 +615,11 @@ $phone-break: 500px;
 }
 
 
-
-
+.feed-page-wrapper{
+  background: #f1f1f1;
+  display: flex;
+  flex:1;
+}
 
 
 
