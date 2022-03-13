@@ -400,7 +400,7 @@ $phone-break: 500px;
     border-top:none;
     display: flex;
     flex-direction: column;
-    padding:20px 0 20px 0;
+    padding:5px 0 5px 0;
 
     .results-type-wrapper{
       display: flex;
@@ -411,7 +411,7 @@ $phone-break: 500px;
       .result-label{
         display: flex;
         border-bottom:solid 1px #000;
-        margin:10px;
+        margin:10px 10px 0 10px;
         padding:0 0 5px 2px;
         font-size:14px;
         line-height: 14px;
@@ -427,10 +427,12 @@ $phone-break: 500px;
         justify-content: center;
         padding:10px;
         font-size:12px;
+        line-height: 12px;
+        &:empty{
+          display: none;
+        }
       }
     }
-
-
   }
 
   .search-loader{
@@ -442,12 +444,36 @@ $phone-break: 500px;
     div {
       position: absolute;
       top: 0;
-      width: 10px;
-      height: 10px;
+      width: 8px;
+      height: 8px;
       border-radius: 50%;
       background: #525252;
       animation-timing-function: cubic-bezier(0, 1, 1, 0);
     }
+
+    &.large{
+      height:10px;
+      width:75px;
+      margin:10px auto;
+      div{
+        width:10px;
+        height:10px;
+      }
+    }
+    &.small{
+      height:6px;
+      width:75px;
+      margin:13px auto;
+      div{
+        width: 6px;
+        height: 6px;
+      }
+    }
+
+
+
+
+
     div:nth-child(1) {
       left: 8px;
       animation: search-loader1 0.6s infinite;
@@ -488,6 +514,39 @@ $phone-break: 500px;
         transform: translate(24px, 0);
       }
     }
+  }
+}
+
+// Component - ResultsViewer for AutoSearch
+.results-wrapper{
+  display: flex;
+  flex-direction: column;
+  padding:5px 20px;
+  gap:5px;
+  margin:0;
+  li{
+    padding:10px 5px;
+    width: 100%;
+    list-style-type: none;
+    margin:0;
+    display: flex;
+    border-bottom:solid 1px #cccccc;
+    font-weight: bold;
+    cursor: pointer;
+    &:hover{
+      text-decoration: underline;
+    }
+    &:last-child{
+      border-bottom-width:0;
+    }
+  }
+  .results-view-all{
+    display: flex;
+    align-self: flex-end;
+    color:#000;
+    padding:10px 10px 0 10px;
+    text-decoration: underline;
+    cursor: pointer;
   }
 }
 
