@@ -1,12 +1,17 @@
 import {FaSearch} from "react-icons/fa";
 import React from "react";
 import AutoSearch from "../../components/AutoSearch";
+import {useNavigate} from "react-router-dom";
 
 const Navigation = (props) => {
+
+    const navigate = useNavigate();
+    const wrapperClassName = 'navigation ' + (props.transparent ? 'transparent':'')
+
     return (
-        <div className={['navigation ', props.transparent ? 'transparent':'']}>
+        <div className={wrapperClassName}>
             <div className='navigation-inner'>
-                <h1 className='header'>Foodie</h1>
+                <h1 className='header' onClick={()=>{navigate('/')}}>Foodie</h1>
 
                 <div className='nav-search-form'>
                     <AutoSearch />
