@@ -1,13 +1,12 @@
 import React, {useState} from "react";
-// import Header from './Header';
-import Banner from "./components/Banner";
-import AboutSection from "./components/AboutSection";
 import './components/Css/index.scss';
 import WelcomePage from "./containers/WelcomePage";
 import {Routes, Route, Link} from "react-router-dom";
-import {FaTimes} from 'react-icons/fa';
 import Navigation from "./containers/Navigation";
 import FeedPage from "./containers/FeedPage";
+
+//Icons
+import {FaTimes} from 'react-icons/fa';
 
 
 
