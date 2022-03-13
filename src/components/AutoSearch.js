@@ -1,16 +1,31 @@
 import {FaSearch} from "react-icons/fa";
 import React, {useEffect, useState} from "react";
-import {click} from "@testing-library/user-event/dist/click";
 import OutsideAlerter from "./OutsideAlerter";
 
-const ResultsViewer = () => {
+const ResultsViewer = (props) => {
+    const showMore = true;
 
-    return null;
+    if (!props.data){
+        return null;
+    }
+
+    return (
+        <ul className='results-wrapper'>
+            {props.data.map((result,i) => (
+                <li key={i}>{result.name}</li>
+            ))}
+            { showMore ? (
+                <a className='results-view-all'>View All</a>
+            ) : (
+                <></>
+            )}
+        </ul>
+    );
 }
 
-const SearchLoader = () => {
+const SearchLoader = (props) => {
     return (
-        <div className='search-loader'>
+        <div className={'search-loader ' + props.size}>
             <div></div>
             <div></div>
             <div></div>
@@ -18,11 +33,6 @@ const SearchLoader = () => {
         </div>
     );
 }
-
-
-
-
-
 
 const AutoSearch = () => {
 
@@ -55,6 +65,16 @@ const AutoSearch = () => {
     const [dataRecipes, setDataRecipes] = useState(null);
     const [dataCreators, setDataCreators] = useState(null);
     const [dataIngredients, setDataIngredients] = useState(null);
+    const clearAllData = () => {
+        setDataCreators(null);
+        setDataRecipes(null);
+        setDataIngredients(null);
+
+        setCountRecipes(0);
+        setCountCreators(0);
+        setCountIngredients(0);
+    }
+
 
     //Search Input
     const [searchInput, setSearchInput] = useState('');
@@ -64,12 +84,28 @@ const AutoSearch = () => {
     const [clickedOutside, setClickedOutside] = useState(false);
 
     useEffect(()=>{
-        if(searchFocused && clickedOutside && searchSessionStarted){
+        if(searchFocused && clickedOutside){
             setSearchSessionStarted(false);
             setSearchFocused(false);
-            setClickedOutside(false);
+            clearAllData();
         }
+        setClickedOutside(false);
     }, [clickedOutside])
+
+
+    const demoUpdateResults = () => {
+        const data = {'results':{
+            'recipes': [
+                {'id': 1, 'name': 'Chocolate Cake'},
+                {'id': 2, 'name': 'Chocolate Cake'},
+                {'id': 3, 'name': 'Chocolate Cake'},
+                {'id': 4, 'name': 'Chocolate Cake'},
+            ],
+            'creators': [],
+            'ingredients': [],
+            }};
+        updateResultsHandler(data);
+    }
 
 
     const updateResultsHandler = (rawData) => {
@@ -92,6 +128,11 @@ const AutoSearch = () => {
             setLoadingAll(true);
             setSearchFocused(true);
         }
+        else if (eventInputValue.length === 0){
+            setLoadingAll(false);
+            setSearchFocused(false);
+            clearAllData();
+        }
         else{
             setLoadingAll(false);
         }
@@ -102,12 +143,15 @@ const AutoSearch = () => {
                 setLoadingCreators(false);
                 setTimeout(()=>{
                     setLoadingIngredients(false);
+
+                    demoUpdateResults();
                 }, 1000);
             }, 1000);
         }, 1000);
     }
 
     const inputFocusHandler = (event) => {
+        setSearchFocused(true);
         setSearchSessionStarted(true);
     }
 
@@ -122,16 +166,16 @@ const AutoSearch = () => {
                 <div className='search-submit'>
                     <FaSearch className='nav-search-icon'/>
                 </div>
-                { (getLoadingAny() || getTotalDataCount() > 0) || (searchInput.length > 0 && searchFocused && ! getLoadingAll() )? (
+                { searchFocused && ((getLoadingAny() || getTotalDataCount() > 0 ) || (searchInput.length > 0 && ! getLoadingAll() )) ? (
                 <div className='search-results'>
                     { getTotalDataCount() > 0  || (!getLoadingAll() && (searchInput.length > 0 && searchFocused)) ? (<>
                         <div className='results-type-wrapper' style={{order: -countRecipes}}>
                             <span className='result-label'>Recipes <i>({countRecipes})</i></span>
-                            { countRecipes && !loadingRecipes ? (
+                            { countRecipes ? (
                                 <ResultsViewer data={dataRecipes}/>
                             ):(<>
                                 { loadingRecipes ? (
-                                    <SearchLoader/>
+                                    <SearchLoader size='small'/>
                                 ) : (
 
                                     <span className='result-none'>No Results Found in Recipes</span>
@@ -140,11 +184,11 @@ const AutoSearch = () => {
                         </div>
                         <div className='results-type-wrapper' style={{order: -countCreators}}>
                             <span className='result-label'>Creators <i>({countCreators})</i></span>
-                            { countCreators && !loadingCreators ? (
+                            { countCreators ? (
                                 <ResultsViewer data={dataCreators}/>
                             ):(<>
                         { loadingCreators ? (
-                            <SearchLoader/>
+                            <SearchLoader size='small'/>
                             ) : (
 
                             <span className='result-none'>No Results Found in Creators</span>
@@ -153,11 +197,11 @@ const AutoSearch = () => {
                         </div>
                         <div className='results-type-wrapper' style={{order: -countIngredients}}>
                             <span className='result-label'>Ingredients <i>({countIngredients})</i></span>
-                            { countIngredients && !loadingIngredients ? (
+                            { countIngredients ? (
                                 <ResultsViewer data={dataIngredients}/>
                             ):(<>
                         { loadingIngredients ? (
-                            <SearchLoader/>
+                            <SearchLoader size='small'/>
                             ) : (
 
                             <span className='result-none'>No Results Found in Ingredients</span>
@@ -166,7 +210,7 @@ const AutoSearch = () => {
                         </div>
                     </>) : (
                         <>
-                            <SearchLoader/>
+                            <SearchLoader size={'large'}/>
                         </>
                     )}
 
@@ -177,4 +221,5 @@ const AutoSearch = () => {
         </div>
     );
 }
+
 export default AutoSearch;
