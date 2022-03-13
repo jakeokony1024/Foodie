@@ -4,22 +4,25 @@ import OutsideAlerter from "./OutsideAlerter";
 
 const ResultsViewer = (props) => {
     const showMore = true;
-
-    if (!props.data){
-        return null;
-    }
-
     return (
-        <ul className='results-wrapper'>
-            {props.data.map((result,i) => (
-                <li key={i}>{result.name}</li>
-            ))}
-            { showMore ? (
-                <a className='results-view-all'>View All</a>
-            ) : (
-                <></>
-            )}
-        </ul>
+        <div className='results-type-wrapper' style={{order: -props.count}}>
+            <span className='result-label'>{props.label} <i>({props.count})</i></span>
+            { props.count ? (
+                <ul className='results-wrapper'>
+                    {props.data ? <>
+                        { props.data.map((result,i) => <li key={result.id}>{result.name}</li>) }
+                        { showMore ? (<a className='results-view-all'>View All</a>) : null }
+
+                    </>:null}
+                </ul>
+            ):(<>
+                { props.loading ? (
+                    <SearchLoader size='small'/>
+                ) : (
+                    <span className='result-none'>No Results Found in {props.label}</span>
+                )}
+            </>)}
+        </div>
     );
 }
 
@@ -95,14 +98,14 @@ const AutoSearch = () => {
 
     const demoUpdateResults = () => {
         const data = {'results':{
-            'recipes': [
-                {'id': 1, 'name': 'Chocolate Cake'},
-                {'id': 2, 'name': 'Chocolate Cake'},
-                {'id': 3, 'name': 'Chocolate Cake'},
-                {'id': 4, 'name': 'Chocolate Cake'},
-            ],
+            'recipes': [],
             'creators': [],
-            'ingredients': [],
+            'ingredients': [
+                {'id': 1, 'name': 'Eggs'},
+                {'id': 2, 'name': 'Milk'},
+                {'id': 3, 'name': 'Frozen Chicken'},
+                {'id': 4, 'name': 'Salt'},
+            ],
             }};
         updateResultsHandler(data);
     }
@@ -150,9 +153,9 @@ const AutoSearch = () => {
         }, 1000);
     }
 
-    const inputFocusHandler = (event) => {
-        setSearchFocused(true);
-        setSearchSessionStarted(true);
+    const inputFocusHandler = (isFocused) => {
+        setSearchFocused(isFocused);
+        setSearchSessionStarted(isFocused);
     }
 
 
@@ -162,59 +165,17 @@ const AutoSearch = () => {
                 <input type="text" className={['search-input ', 'active']}
                        placeholder='Search Recipes, Ingredients, Creators, and More!'
                 value={searchInput} onChange={inputChangedHandler}
-                onFocus={inputFocusHandler}/>
+                onFocus={()=>{inputFocusHandler(true)}} onBlur={()=>{inputFocusHandler(false)}}/>
                 <div className='search-submit'>
                     <FaSearch className='nav-search-icon'/>
                 </div>
                 { searchFocused && ((getLoadingAny() || getTotalDataCount() > 0 ) || (searchInput.length > 0 && ! getLoadingAll() )) ? (
                 <div className='search-results'>
                     { getTotalDataCount() > 0  || (!getLoadingAll() && (searchInput.length > 0 && searchFocused)) ? (<>
-                        <div className='results-type-wrapper' style={{order: -countRecipes}}>
-                            <span className='result-label'>Recipes <i>({countRecipes})</i></span>
-                            { countRecipes ? (
-                                <ResultsViewer data={dataRecipes}/>
-                            ):(<>
-                                { loadingRecipes ? (
-                                    <SearchLoader size='small'/>
-                                ) : (
-
-                                    <span className='result-none'>No Results Found in Recipes</span>
-                                )}
-                            </>)}
-                        </div>
-                        <div className='results-type-wrapper' style={{order: -countCreators}}>
-                            <span className='result-label'>Creators <i>({countCreators})</i></span>
-                            { countCreators ? (
-                                <ResultsViewer data={dataCreators}/>
-                            ):(<>
-                        { loadingCreators ? (
-                            <SearchLoader size='small'/>
-                            ) : (
-
-                            <span className='result-none'>No Results Found in Creators</span>
-                            )}
-                            </>)}
-                        </div>
-                        <div className='results-type-wrapper' style={{order: -countIngredients}}>
-                            <span className='result-label'>Ingredients <i>({countIngredients})</i></span>
-                            { countIngredients ? (
-                                <ResultsViewer data={dataIngredients}/>
-                            ):(<>
-                        { loadingIngredients ? (
-                            <SearchLoader size='small'/>
-                            ) : (
-
-                            <span className='result-none'>No Results Found in Ingredients</span>
-                            )}
-                            </>)}
-                        </div>
-                    </>) : (
-                        <>
-                            <SearchLoader size={'large'}/>
-                        </>
-                    )}
-
-
+                        <ResultsViewer data={dataRecipes} count={countRecipes} loading={loadingRecipes} label='Recipes'/>
+                        <ResultsViewer data={dataCreators} count={countCreators} loading={loadingCreators} label='Creators'/>
+                        <ResultsViewer data={dataIngredients} count={countIngredients} loading={loadingIngredients} label='Ingredients'/>
+                    </>) : (<SearchLoader size={'large'}/>)}
                 </div>
                     ):null}
             </OutsideAlerter>
