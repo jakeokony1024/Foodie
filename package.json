@@ -42,6 +42,7 @@
     ]
   },
   "devDependencies": {
+    "@reduxjs/toolkit": "^1.8.0",
     "gh-pages": "^3.2.3"
   }
 }
