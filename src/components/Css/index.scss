@@ -22,16 +22,16 @@ h1,h2,h3,h4,  {
 .main-wrapper{
   width:100%;
   display: flex;
-  flex:1;
-  height:100vh;
   flex-direction: column;
 }
 .page-wrapper{
   width:100%;
   display: flex;
-  flex:1;
-  background: #000;
+  background: #F1F1F1;
   position: relative;
+  &.screen-height{
+    min-height:100vh;
+  }
 }
 
 
@@ -118,6 +118,8 @@ $phone-break: 500px;
   width:100%;
   height:60px;
   background: white;
+  transition: opacity ease 0.5s;
+
   .navigation-inner{
     max-width:1200px;
     margin:0 auto;
@@ -179,8 +181,8 @@ $phone-break: 500px;
 
   &.transparent{
     background: #000;
-    opacity: 0.5;
     height:0;
+    color:#cccccc;
 
     .navigation-inner{
       border-color:white;
@@ -188,13 +190,14 @@ $phone-break: 500px;
     }
     .header{
       color:white;
+      transition: color ease 0.5s;
       &:hover{
-        color: #007800;
+        //color: #007800;
       }
     }
     .nav-account a{
       &:hover{
-        color: #007800;
+        //color: #007800;
       }
     }
     .search-submit{
@@ -204,7 +207,15 @@ $phone-break: 500px;
         border-color: #FFF !important;
       }
     }
+    .search-results{
+      color:#000;
+    }
+
   }
+  &:hover{
+    color: #737373;
+  }
+
 
 
   @media(max-width: $phone-break){
@@ -363,8 +374,17 @@ $phone-break: 500px;
     border-style: solid;
     border-color: inherit;
 
+    transition: border-color ease 0.5s, background-color ease 0.5s, color ease 0.5s;
+
     &::placeholder{
       color: inherit;
+    }
+
+    &:focus{
+      background:white;
+      color:#000;
+      outline:none;
+      -webkit-appearance: none;
     }
 
   }
