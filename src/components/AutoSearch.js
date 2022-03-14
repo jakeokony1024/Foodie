@@ -1,6 +1,7 @@
 import {FaSearch} from "react-icons/fa";
 import React, {useEffect, useState} from "react";
 import OutsideAlerter from "./OutsideAlerter";
+import {useAutoSearchPreviewQuery} from "../services/modules/Search";
 
 const ResultsViewer = (props) => {
     const showMore = true;
@@ -12,7 +13,6 @@ const ResultsViewer = (props) => {
                     {props.data ? <>
                         { props.data.map((result,i) => <li key={result.id}>{result.name}</li>) }
                         { showMore ? (<a className='results-view-all'>View All</a>) : null }
-
                     </>:null}
                 </ul>
             ):(<>
@@ -83,8 +83,16 @@ const AutoSearch = () => {
     const [searchInput, setSearchInput] = useState('');
     const [searchFocused, setSearchFocused] = useState(false);
     const [searchSessionStarted, setSearchSessionStarted] = useState(false);
-
     const [clickedOutside, setClickedOutside] = useState(false);
+
+    const { data, isLoading, error } = useAutoSearchPreviewQuery('thing');
+
+
+    useEffect(() => {
+
+
+    }, [searchInput])
+
 
     useEffect(()=>{
         if(searchFocused && clickedOutside){
