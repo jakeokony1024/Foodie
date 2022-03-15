@@ -12,6 +12,8 @@
 + [What is Foodie?](#what-is-foodie)
 + [Environment Setup](#environment-setup)
 + [Running the Project](#running-the-project)
++ [Development Notes](#development-notes)
++ [Inspiration](#inspiration)
 + [Current Issues](#current-issues)
 + [Things To Do](#things-to-do)
 + [Api Documentation](#api-documentation)
@@ -29,17 +31,51 @@ Foodie is something that is something.
 
 
 ## Running the Project
-In the project directory, you can run:
-### `npm start`
+In the project directory, run:
+## `npm i --save`
+## `npm start`
+if only seeing white screen, look at src/App.js file :rofl:
 
 Runs the app in the development mode.\
 Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
 The page will reload when you make changes.\
 You may also see any lint errors in the console.
+
+## Inspiration
+review this [app](https://thecookbookapp.com/)
+review [webpage](https://www.mygreatrecipes.com/) also has an app
+
 ## Current Issues
 
 ## Things To Do
+
+connect recipe scraper tool, saves recipes to book
+
+## Development Notes
+###User
++ searchable
++ has profile / everything user has posted
++ feed of recent activity from friends 
++ has a list of friends
++ Each user has recipe book with public and private recipes
+
+###Post 
++ can be video, photo with title, recipe
++ recipes posted display title and type
++ searchable
+
+###recipes
++ searchable
++ each recipe has photo assigned to it (can be multiple)
++ each recipe can be marked private or public
++ public recipes are stored in a book under a user's account
++ access to private recipes is determined by the user on a case by case, or large scale basis (select multiple recipes to give access to).
++ Private recipe titles are public, ingredients and instructions are blurred. access can be requested by a user's friend.
++ recipes can be converted to and from metric / imperial
++ yields adjust ingredient amounts
++ substitute ingredients can be suggested after recipe creation / setting turned on
+
 
 ## Api Documentation
 
