@@ -43,8 +43,9 @@ The page will reload when you make changes.\
 You may also see any lint errors in the console.
 
 ## Inspiration
-review this [app](https://thecookbookapp.com/)
-review [webpage](https://www.mygreatrecipes.com/) also has an app
+ review this [app](https://thecookbookapp.com/)
+
+ review [webpage](https://www.mygreatrecipes.com/) also has an app
 
 ## Current Issues
 
