@@ -4,6 +4,9 @@ import OutsideAlerter from "./OutsideAlerter";
 import {useAutoSearchPreviewQuery} from "../services/modules/Search";
 
 const ResultsViewer = (props) => {
+
+
+
     const showMore = true;
     return (
         <div className='results-type-wrapper' style={{order: -props.count}}>
@@ -11,7 +14,7 @@ const ResultsViewer = (props) => {
             { props.count ? (
                 <ul className='results-wrapper'>
                     {props.data ? <>
-                        { props.data.map((result,i) => <li key={result.id}>{result.name}</li>) }
+                        { props.data.map((result,i) => <li key={result.id}>{result.name ? result.name : result.text}</li>) }
                         { showMore ? (<a className='results-view-all'>View All</a>) : null }
                     </>:null}
                 </ul>
@@ -84,14 +87,24 @@ const AutoSearch = () => {
     const [searchFocused, setSearchFocused] = useState(false);
     const [searchSessionStarted, setSearchSessionStarted] = useState(false);
     const [clickedOutside, setClickedOutside] = useState(false);
+    const { data, isLoading, error } = useAutoSearchPreviewQuery(searchInput);
 
-    const { data, isLoading, error } = useAutoSearchPreviewQuery('thing');
+    const performSearchQuery = async (q) => {
+
+
+    }
 
 
     useEffect(() => {
+        if(isLoading){
+            console.log('Loading');
+        }
+        if(data && ! isLoading){
+            updateResultsHandler(data);
+        }
 
 
-    }, [searchInput])
+    }, [data, isLoading, error])
 
 
     useEffect(()=>{
@@ -104,29 +117,17 @@ const AutoSearch = () => {
     }, [clickedOutside])
 
 
-    const demoUpdateResults = () => {
-        const data = {'results':{
-            'recipes': [],
-            'creators': [],
-            'ingredients': [
-                {'id': 1, 'name': 'Eggs'},
-                {'id': 2, 'name': 'Milk'},
-                {'id': 3, 'name': 'Frozen Chicken'},
-                {'id': 4, 'name': 'Salt'},
-            ],
-            }};
-        updateResultsHandler(data);
-    }
+
 
 
     const updateResultsHandler = (rawData) => {
-        setDataRecipes(rawData.results.recipes);
-        setDataCreators(rawData.results.creators);
-        setDataIngredients(rawData.results.ingredients);
+        setDataRecipes(rawData.recipes);
+        setDataCreators(rawData.creators);
+        setDataIngredients(rawData.ingredients);
 
-        setCountRecipes(rawData.results.recipes.length);
-        setCountCreators(rawData.results.creators.length);
-        setCountIngredients(rawData.results.ingredients.length);
+        setCountRecipes(rawData.recipes.length);
+        setCountCreators(rawData.creators.length);
+        setCountIngredients(rawData.ingredients.length);
 
         setLoadingRecipes(false);
         setLoadingCreators(false);
@@ -148,17 +149,7 @@ const AutoSearch = () => {
             setLoadingAll(false);
         }
         setSearchInput(eventInputValue);
-        setTimeout(()=>{
-            setLoadingRecipes(false);
-            setTimeout(()=>{
-                setLoadingCreators(false);
-                setTimeout(()=>{
-                    setLoadingIngredients(false);
 
-                    demoUpdateResults();
-                }, 1000);
-            }, 1000);
-        }, 1000);
     }
 
     const inputFocusHandler = (isFocused) => {
