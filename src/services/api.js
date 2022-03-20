@@ -10,6 +10,13 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 // }
 
 export const api = createApi({
-    baseQuery: fetchBaseQuery({ baseUrl: Config.API_URL }),
+    baseQuery: fetchBaseQuery({
+        baseUrl: Config.API_URL,
+        prepareHeaders: (headers, { getState }) => {
+           // headers.set('authorization', `Bearer ${token}`)
+
+            return headers
+        },
+    }),
     endpoints: () => ({}),
 })
