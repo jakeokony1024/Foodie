@@ -3,14 +3,14 @@ import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import FontFaceObserver from 'fontfaceobserver';
 import 'sanitize.css/sanitize.css';
-
-// Import root app
+import history from './utils/history';// Import root app
 import App from './containers/App';
 
 
 import configureStore from './configureStore';
 
-import {BrowserRouter} from "react-router-dom";
+import { BrowserRouter as Router } from 'react-router-dom'
+import {ConnectedRouter} from "connected-react-router";
 
 
 // Create redux store with history
@@ -20,9 +20,9 @@ const MOUNT_NODE = document.getElementById('app');
 
 ReactDOM.render(
     <Provider store={store}>
-        <BrowserRouter>
-            <App/>
-        </BrowserRouter>
+        <Router>
+            <App />
+        </Router>
     </Provider>,
     MOUNT_NODE,
 );
