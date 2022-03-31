@@ -10,13 +10,15 @@
 import produce from 'immer';
 import { LOGIN_USER_SUCCESS, LOGIN_USER, LOGIN_USER_ERROR } from './constants';
 
-// The initial state of the App
+// The initial state of Foodie App
 export const initialState = {
     loading: false,
     error: false,
-    currentUser: false,
+    token: false,
     userData: {
-        recipes: false,
+        id: false,
+        firstName: false,
+        lastName: false,
     },
 };
 
@@ -27,18 +29,19 @@ const appReducer = (state = initialState, action) =>
             case LOGIN_USER:
                 draft.loading = true;
                 draft.error = false;
+                draft.token = false;
                 draft.userData.recipes = false;
                 break;
 
             case LOGIN_USER_SUCCESS:
-                draft.userData.repositories = action.repos;
                 draft.loading = false;
-                draft.currentUser = action.username;
+                draft.token = action.token;
+                draft.userData = action.userData;
                 break;
 
             case LOGIN_USER_ERROR:
-                draft.error = action.error;
                 draft.loading = false;
+                draft.error = action.error;
                 break;
         }
     });
