@@ -4,7 +4,7 @@ import { FaSearch } from 'react-icons/fa';
 import Footer from "../Footer";
 import Navigation from "../Navigation";
 import ImageBackground from "../../components/ImageBackground";
-import AuthenticationInput from "../Authentication/AuthenticationInput";
+import AuthenticationInput from '../Authentication/AuthenticationInput';
 import {useNavigate} from "react-router-dom";
 
 
@@ -14,8 +14,8 @@ const foodieImage = require('../../Assets/foodie_background.jpeg');
 export default function WelcomePage(){
 
     return (
-        <div className='page-wrapper screen-height'>
-            <Navigation transparent={true}/>
+        <div className='full-wrapper screen-height'>
+            <Navigation transparent={true} absolute={true}/>
             <ImageBackground imageSource={foodieImage}>
                 <div className='welcome-page-wrapper'>
                     <div className='welcome-page-center'>
